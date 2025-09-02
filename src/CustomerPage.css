@@ -1,0 +1,103 @@
+.customer-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.catalog {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.product-tile {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.product-tile:hover {
+  transform: translateY(-3px);
+}
+
+.price-label {
+  font-weight: bold;
+}
+
+.price-label.local {
+  color: #888;
+}
+
+.price-value {
+  color: green;
+  font-weight: bold;
+}
+
+.cart {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background: #fafafa;
+}
+
+.cart-summary {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.grand-total {
+  font-size: 16px;
+  font-weight: bold;
+  color: darkred;
+  margin-top: 10px;
+}
+
+.customer-form input {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.place-order {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  width: 100%;
+}
+
+.place-order:hover {
+  background-color: #218838;
+}
+
+.no-products {
+  font-style: italic;
+  color: #888;
+  grid-column: span 3;
+  text-align: center;
+}
+
+.switch-btn {
+  margin-bottom: 15px;
+  padding: 6px 12px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.switch-btn:hover {
+  background: #0056b3;
+}
