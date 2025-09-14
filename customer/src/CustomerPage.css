@@ -1,0 +1,226 @@
+/* ================== GLOBAL ================== */
+body, html, .page {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: black;
+}
+
+/* ================== HEADER ================== */
+.header {
+  text-align: center;
+  padding: 15px 0 10px 0; /* ✅ removed white space */
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px #000;
+}
+
+/* ================== CATEGORY NAV ================== */
+.category-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 12px 12px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cat-tab {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #FFD700;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cat-tab.active {
+  background-color: orange;
+  color: white;
+}
+
+.cat-tab.cart-tab {
+  background-color: green;
+  color: white;
+}
+
+.cat-tab:hover {
+  transform: scale(1.08);
+}
+
+/* ================== MAIN LAYOUT ================== */
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* ================== PRODUCT GRID ================== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  flex: 3;
+}
+
+/* 🎨 Vibrant Gradient Tiles */
+.product-card {
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease-in-out;
+  color: black;
+  font-weight: bold;
+}
+
+.product-card:nth-child(6n+1) { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.product-card:nth-child(6n+2) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.product-card:nth-child(6n+3) { background: linear-gradient(135deg, #f6d365, #fda085); }
+.product-card:nth-child(6n+4) { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+.product-card:nth-child(6n+5) { background: linear-gradient(135deg, #cfd9df, #e2ebf0); }
+.product-card:nth-child(6n+6) { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card h3 {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.product-card p {
+  font-size: 0.9em;
+  margin: 3px 0;
+}
+
+.price-current {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.old-price {
+  text-decoration: line-through;
+  font-size: 0.9em;
+  color: #333;
+  margin-left: 5px;
+}
+
+/* Qty Controls */
+.qty-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.qty-controls button {
+  padding: 4px 10px;
+  background: orange;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+/* ================== ORDER SUMMARY ================== */
+.order-summary {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 360px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  flex: 1;
+  color: black;
+}
+
+.order-summary h2 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  color: #b71c1c;
+}
+
+.order-summary .order-items {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.order-summary .item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85em;
+  margin: 5px 0;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 4px;
+}
+
+.subtotal {
+  font-weight: bold;
+  text-align: right;
+  margin-top: 10px;
+  color: #b71c1c;
+}
+
+/* ================== ORDER FORM ================== */
+.order-form input,
+.order-form textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Place Order Button */
+.place-order-btn {
+  width: 100%;
+  padding: 12px;
+  background: green;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.place-order-btn:hover {
+  background: darkgreen;
+}
+
+/* Success Box */
+.success-box {
+  background: rgba(255, 255, 255, 0.95);
+  color: black;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 500px;
+  margin: 100px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}

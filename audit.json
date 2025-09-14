@@ -1,0 +1,177 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "dompurify": {
+      "name": "dompurify",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1105772,
+          "name": "dompurify",
+          "dependency": "dompurify",
+          "title": "DOMPurify allows Cross-site Scripting (XSS)",
+          "url": "https://github.com/advisories/GHSA-vhxf-7vqr-mrjg",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 4.5,
+            "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+          },
+          "range": "<3.2.4"
+        }
+      ],
+      "effects": [
+        "jspdf"
+      ],
+      "range": "<3.2.4",
+      "nodes": [
+        "admin/node_modules/dompurify",
+        "customer/node_modules/dompurify"
+      ],
+      "fixAvailable": {
+        "name": "jspdf",
+        "version": "3.0.2",
+        "isSemVerMajor": true
+      }
+    },
+    "jspdf": {
+      "name": "jspdf",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1103308,
+          "name": "jspdf",
+          "dependency": "jspdf",
+          "title": "jsPDF Bypass Regular Expression Denial of Service (ReDoS)",
+          "url": "https://github.com/advisories/GHSA-w532-jxjh-hjhj",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<3.0.1"
+        },
+        {
+          "source": 1107055,
+          "name": "jspdf",
+          "dependency": "jspdf",
+          "title": "jsPDF Denial of Service (DoS)",
+          "url": "https://github.com/advisories/GHSA-8mvj-3j78-4qmw",
+          "severity": "high",
+          "cwe": [
+            "CWE-835"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<=3.0.1"
+        },
+        "dompurify"
+      ],
+      "effects": [
+        "jspdf-autotable"
+      ],
+      "range": "<=3.0.1",
+      "nodes": [
+        "admin/node_modules/jspdf",
+        "customer/node_modules/jspdf"
+      ],
+      "fixAvailable": {
+        "name": "jspdf",
+        "version": "3.0.2",
+        "isSemVerMajor": true
+      }
+    },
+    "jspdf-autotable": {
+      "name": "jspdf-autotable",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "jspdf"
+      ],
+      "effects": [],
+      "range": "2.0.9 - 2.1.0 || 2.3.3 - 3.8.4",
+      "nodes": [
+        "admin/node_modules/jspdf-autotable",
+        "customer/node_modules/jspdf-autotable"
+      ],
+      "fixAvailable": {
+        "name": "jspdf-autotable",
+        "version": "5.0.2",
+        "isSemVerMajor": true
+      }
+    },
+    "xlsx": {
+      "name": "xlsx",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1094599,
+          "name": "xlsx",
+          "dependency": "xlsx",
+          "title": "Prototype Pollution in sheetJS",
+          "url": "https://github.com/advisories/GHSA-4r6h-8v6p-xvw6",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 7.8,
+            "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+          },
+          "range": "<0.19.3"
+        },
+        {
+          "source": 1096911,
+          "name": "xlsx",
+          "dependency": "xlsx",
+          "title": "SheetJS Regular Expression Denial of Service (ReDoS)",
+          "url": "https://github.com/advisories/GHSA-5pgg-2g8v-p4x9",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<0.20.2"
+        }
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": [
+        "node_modules/xlsx"
+      ],
+      "fixAvailable": false
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 3,
+      "critical": 0,
+      "total": 4
+    },
+    "dependencies": {
+      "prod": 33,
+      "dev": 0,
+      "optional": 18,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 50
+    }
+  }
+}
