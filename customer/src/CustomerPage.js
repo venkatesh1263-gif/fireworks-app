@@ -28,17 +28,31 @@ export default function CustomerPage() {
   const [lastOrder, setLastOrder] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // ✅ New: loading state
+  const [loading, setLoading] = useState(true);
+
   // fetch products + admins
   useEffect(() => {
+    const cached = localStorage.getItem("fireworks_products");
+    if (cached) {
+      try {
+        setProducts(JSON.parse(cached));
+        setLoading(false);
+      } catch {}
+    }
+
     fetch(`${API_URL}?action=getProducts`)
       .then((r) => r.json())
       .then((data) => {
-        if (Array.isArray(data)) setProducts(data);
-        else if (data?.data && Array.isArray(data.data)) setProducts(data.data);
-        else if (data?.products && Array.isArray(data.products)) setProducts(data.products);
-        else setProducts([]);
+        let arr = [];
+        if (Array.isArray(data)) arr = data;
+        else if (data?.data && Array.isArray(data.data)) arr = data.data;
+        else if (data?.products && Array.isArray(data.products)) arr = data.products;
+        setProducts(arr);
+        localStorage.setItem("fireworks_products", JSON.stringify(arr));
       })
-      .catch(() => setProducts([]));
+      .catch(() => setProducts([]))
+      .finally(() => setLoading(false));
 
     fetch(`${API_URL}?action=getAdmins`)
       .then((r) => r.json())
@@ -75,6 +89,9 @@ export default function CustomerPage() {
   );
 
   async function handlePlaceOrder() {
+    if (subtotal < 2500) {
+      return alert("⚠️ Minimum order value is ₹2500. Please add more items.");
+    }
     if (!customer.name.trim()) return alert("Please enter name.");
     if (!isTenDigits(customer.phone)) return alert("Phone must be 10 digits.");
     if (!isTenDigits(customer.whatsapp)) return alert("WhatsApp must be 10 digits.");
@@ -198,30 +215,35 @@ export default function CustomerPage() {
       <div className="main">
         {/* products */}
         <div className="product-grid">
-          {displayedProducts.length === 0 && <div className="product-card">No products found.</div>}
-          {displayedProducts.map((p) => {
-            const inCart = cart[p.id];
-            const addedCount = inCart ? inCart.qty : 0;
-            return (
-              <div className="product-card" key={p.id}>
-                <h3>{p.item}{p.subItem ? <span className="sub"> — {p.subItem}</span> : null}</h3>
-                <p className="category-label">{p.category}</p>
-                <p className="price">
-                  <span className="price-current">₹{Number(p.ourPrice).toFixed(2)}</span>
-                  <span className="old-price">₹{Number(p.localPrice || 0).toFixed(2)}</span>
-                </p>
-                {addedCount === 0 ? (
-                  <button className="add-btn" onClick={() => addToCart(p)}>Add</button>
-                ) : (
-                  <div className="qty-controls">
-                    <button onClick={() => updateQty(p.id, addedCount - 1)}>-</button>
-                    <span>{addedCount}</span>
-                    <button onClick={() => updateQty(p.id, addedCount + 1)}>+</button>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {loading ? (
+            <div className="product-card">⏳ Loading products...</div>
+          ) : displayedProducts.length === 0 ? (
+            <div className="product-card">No products found.</div>
+          ) : (
+            displayedProducts.map((p) => {
+              const inCart = cart[p.id];
+              const addedCount = inCart ? inCart.qty : 0;
+              return (
+                <div className="product-card" key={p.id}>
+                  <h3>{p.item}{p.subItem ? <span className="sub"> — {p.subItem}</span> : null}</h3>
+                  <p className="category-label">{p.category}</p>
+                  <p className="price">
+                    <span className="price-current">₹{Number(p.ourPrice).toFixed(2)}</span>
+                    <span className="old-price">₹{Number(p.localPrice || 0).toFixed(2)}</span>
+                  </p>
+                  {addedCount === 0 ? (
+                    <button className="add-btn" onClick={() => addToCart(p)}>Add</button>
+                  ) : (
+                    <div className="qty-controls">
+                      <button onClick={() => updateQty(p.id, addedCount - 1)}>-</button>
+                      <span>{addedCount}</span>
+                      <button onClick={() => updateQty(p.id, addedCount + 1)}>+</button>
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          )}
         </div>
 
         {/* order summary */}
@@ -241,6 +263,13 @@ export default function CustomerPage() {
           </div>
           <div className="subtotal">Grand Total: ₹{Number(subtotal).toFixed(2)}</div>
 
+          {/* 🚨 Show minimum order banner */}
+          {subtotal > 0 && subtotal < 2500 && (
+            <div className="min-warning">
+              ⚠️ Minimum Order Value: ₹2500 required
+            </div>
+          )}
+
           <div className="order-form">
             <input placeholder="Your name" value={customer.name}
               onChange={(e) => setCustomer({ ...customer, name: e.target.value })} />
@@ -252,7 +281,11 @@ export default function CustomerPage() {
               onChange={(e) => setCustomer({ ...customer, address: e.target.value })} />
           </div>
 
-          <button className="place-order-btn" onClick={handlePlaceOrder} disabled={placing}>
+          <button
+            className="place-order-btn"
+            onClick={handlePlaceOrder}
+            disabled={placing || subtotal < 2500}
+          >
             {placing ? "Placing..." : "✔ Place Order"}
           </button>
         </div>
