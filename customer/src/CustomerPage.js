@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "./shared/api";
+import { downloadPdfInvoice } from "./shared/invoice"; // ✅ Only import this
 import "./CustomerPage.css";
 
 function normalizeNumberForWa(raw) {
@@ -126,7 +127,9 @@ export default function CustomerPage() {
           subtotal,
         };
 
-        import("./shared/invoice").then(({ downloadPdfInvoice }) => downloadPdfInvoice(order));
+        // ✅ Generate + download invoice (this also uploads to backend)
+        downloadPdfInvoice(order);
+
         setLastOrder(order);
         setCart({});
         setCustomer({ name: "", phone: "", whatsapp: "", address: "" });
@@ -154,9 +157,9 @@ export default function CustomerPage() {
           <h3>Grand Total: ₹{lastOrder.subtotal.toFixed(2)}</h3>
           <p>
             📄 Invoice:{" "}
-            <button onClick={() =>
-              import("./shared/invoice").then(({ downloadPdfInvoice }) => downloadPdfInvoice(lastOrder))
-            }>View Invoice</button>
+            <button onClick={() => downloadPdfInvoice(lastOrder)}>
+              View Invoice
+            </button>
           </p>
           <button onClick={() => setLastOrder(null)}>Back to catalog</button>
         </div>
