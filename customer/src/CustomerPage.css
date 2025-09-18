@@ -6,13 +6,13 @@ body, html, .page {
   width: 100%;
   font-family: Arial, sans-serif;
   color: white;
-  background: black;
+  background: black; /* fallback */
 }
 
 /* ================== HEADER ================== */
 .header {
   text-align: center;
-  padding: 15px 0 10px 0; /* ✅ removed white space */
+  padding: 15px 0 10px 0;
   font-size: 2.5em;
   font-weight: bold;
   color: #FFD700;
@@ -29,6 +29,7 @@ body, html, .page {
   padding: 10px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 0 0 12px 12px;
+  overflow-x: auto;
 }
 
 .categories {
@@ -36,6 +37,7 @@ body, html, .page {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+  flex: 1;
 }
 
 .cat-tab {
@@ -47,6 +49,7 @@ body, html, .page {
   font-size: 1em;
   font-weight: bold;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .cat-tab.active {
@@ -91,7 +94,7 @@ body, html, .page {
   font-weight: bold;
 }
 
-.product-card:nth-child(6n+1) { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.product-card:nth-child(6n+1) { background: linear-gradient(135deg, #ff4e50, #fc913a); }
 .product-card:nth-child(6n+2) { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
 .product-card:nth-child(6n+3) { background: linear-gradient(135deg, #f6d365, #fda085); }
 .product-card:nth-child(6n+4) { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
@@ -115,7 +118,7 @@ body, html, .page {
 .price-current {
   font-size: 1.1em;
   font-weight: bold;
-  color: #d32f2f;
+  color: #b71c1c;
 }
 
 .old-price {
@@ -188,11 +191,12 @@ body, html, .page {
 .order-form input,
 .order-form textarea {
   width: 100%;
-  margin: 10px 0;
-  padding: 12px;
+  margin: 8px 0;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-sizing: border-box;
+  font-size: 0.95em;
 }
 
 /* Place Order Button */
@@ -224,6 +228,7 @@ body, html, .page {
   margin: 100px auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+
 /* ================== MIN ORDER WARNING ================== */
 .min-warning {
   color: red;
@@ -238,4 +243,37 @@ body, html, .page {
   background: grey;
   cursor: not-allowed;
   opacity: 0.7;
+}
+/* ================== MOBILE STYLES ================== */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+
+  /* ✅ 2 tiles per row on mobile */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* ✅ Category tabs wrap into 2 rows */
+  .categories {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-height: none;
+    overflow-x: visible; /* remove forced scroll */
+  }
+
+  .cat-tab {
+    flex: 1 1 calc(50% - 10px); /* distribute evenly in 2 rows */
+    text-align: center;
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
+  .order-summary {
+    max-width: 100%;
+    margin-top: 20px;
+  }
 }
